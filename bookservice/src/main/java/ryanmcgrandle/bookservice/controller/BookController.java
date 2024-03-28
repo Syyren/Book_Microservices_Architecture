@@ -89,7 +89,7 @@ public class BookController
         }
     }
     //endpoints that update a books quantity via its id in the db
-    @PatchMapping("/restock/{bookId}")
+    @PutMapping("/restock/{bookId}")
     @Operation(summary = "Specifically handles adding to a Book's qty via its id.")
     public ResponseEntity<Object> restockBook(@PathVariable Long bookId, @RequestBody Quantity amount)
     {
@@ -106,7 +106,7 @@ public class BookController
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
         }
     }
-    @PatchMapping("/sell/{bookId}")
+    @PutMapping("/sell/{bookId}")
     @Operation(summary = "Specifically handles subtracting from a Book's qty via its id.")
     public ResponseEntity<Object> sellBook(@PathVariable Long bookId, @RequestBody Quantity amount)
     {
