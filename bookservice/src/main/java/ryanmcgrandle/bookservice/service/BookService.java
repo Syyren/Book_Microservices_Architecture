@@ -53,6 +53,12 @@ public class BookService
         if (optionalBook.isPresent()) { return optionalBook.get(); }
         else { throw new RuntimeException("Book not found with ID: " + id); }
     }
+    public Book getByTitle(String title)
+    {
+        Optional<Book> optionalBook = Optional.ofNullable(bookRepository.findByTitleIgnoreCase(title));
+        if (optionalBook.isPresent()) { return optionalBook.get(); }
+        else { throw new RuntimeException("Book not found with title: " + title); }
+    }
     //method that pulls all book objects from the repository
     public List<Book> getAllBooks()
     {

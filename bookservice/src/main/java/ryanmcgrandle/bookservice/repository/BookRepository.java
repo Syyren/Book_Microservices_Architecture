@@ -7,4 +7,5 @@ import ryanmcgrandle.bookservice.model.Book;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long>
 {
+    Book findByTitleIgnoreCase(String title);
 }

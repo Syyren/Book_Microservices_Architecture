@@ -1,5 +1,6 @@
 package ryanmcgrandle.orderservice.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import ryanmcgrandle.orderservice.client.BookClient;
 import ryanmcgrandle.orderservice.model.Book;
 import ryanmcgrandle.orderservice.model.Order;
 import ryanmcgrandle.orderservice.model.Quantity;
+import ryanmcgrandle.orderservice.model.Title;
 
 import java.util.List;
 
@@ -19,11 +21,39 @@ public class OrderController
     private BookClient bookClient;
 
     @GetMapping("/view/all")
-    public List<Book> getAllBooks()
+    @Operation(summary = "Gets a list of Books from the Microservice.")
+    public ResponseEntity<?> getAllBooks()
     {
-        return bookClient.getAllBooks();
+        try
+        {
+            List<Book> booklist = bookClient.getAllBooks();
+            return ResponseEntity.ok(booklist);
+        }
+        catch (RuntimeException e)
+        {
+            String errorMessage = e.getMessage();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+        }
     }
+
+    @PostMapping("/view/title")
+    @Operation(summary = "Gets a Book from the Microservice by its title.")
+    public ResponseEntity<?> getBooks(@RequestBody Title title)
+    {
+        try
+        {
+            Book book = bookClient.getBookByTitle(title);
+            return ResponseEntity.ok(book);
+        }
+        catch (RuntimeException e)
+        {
+            String errorMessage = e.getMessage();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+        }
+    }
+
     @PutMapping("/sell/{bookId}")
+    @Operation(summary = "Sells a book from the microservice.")
     public ResponseEntity<?> sellBook(@PathVariable Long bookId, @RequestBody Quantity amount)
     {
         try {
@@ -43,6 +73,7 @@ public class OrderController
     }
 
     @PutMapping("/restock/{bookId}")
+    @Operation(summary = "Restocks a book to the microservice.")
     public ResponseEntity<?> restockBook(@PathVariable Long bookId, @RequestBody Quantity amount)
     {
         try

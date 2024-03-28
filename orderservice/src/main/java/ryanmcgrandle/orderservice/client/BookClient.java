@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import ryanmcgrandle.orderservice.model.Book;
 import ryanmcgrandle.orderservice.model.Quantity;
+import ryanmcgrandle.orderservice.model.Title;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +22,11 @@ public class BookClient
     {
         this.restTemplate = restTemplate;
     }
-
+    public Book getBookByTitle(Title title)
+    {
+        String url = URL + "/get/title";
+        return restTemplate.postForObject(url, title, Book.class);
+    }
     public List<Book> getAllBooks()
     {
         String url = URL + "/get/all";

@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ryanmcgrandle.bookservice.model.Book;
 import ryanmcgrandle.bookservice.model.Quantity;
+import ryanmcgrandle.bookservice.model.Title;
 import ryanmcgrandle.bookservice.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class BookController
     //inserts a new achievement into the "db" via the service
     @PostMapping("/create")
     @Operation(summary = "Makes a new Book.")
-    public ResponseEntity<Object> createBook(@RequestBody Book book)
+    public ResponseEntity<?> createBook(@RequestBody Book book)
     {
         try
         {
@@ -45,19 +46,19 @@ public class BookController
     //gets all books in the db from the service
     @GetMapping("/get/all")
     @Operation(summary = "Gets a list of Books from the Database.")
-    public ResponseEntity<List<Book>> getAllBooks()
+    public ResponseEntity<?> getAllBooks()
     {
         List <Book> booklist = bookService.getAllBooks();
         if (booklist.isEmpty())
         {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(booklist);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No books found!");
         }
         return ResponseEntity.ok(booklist);
     }
     //endpoint that gets a book from the db via its id from the service
     @GetMapping("/get/{bookId}")
     @Operation(summary = "Gets a Book from the Database via its id")
-    public ResponseEntity<Object> getBookById(@PathVariable Long bookId)
+    public ResponseEntity<?> getBookById(@PathVariable Long bookId)
     {
         try
         {
@@ -70,10 +71,26 @@ public class BookController
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
         }
     }
+    //endpoint that gets a book by the title in the request body
+    @PostMapping("/get/title")
+    @Operation(summary = "Gets a Book from the Database via its title")
+    public ResponseEntity<?> getBookByTitle(@RequestBody Title title)
+    {
+        try
+        {
+            Book book = bookService.getByTitle(title.getText());
+            return ResponseEntity.ok(book);
+        }
+        catch (RuntimeException e)
+        {
+            String errorMessage = e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+        }
+    }
     //endpoint that updates a book that already exists in the db by id through the service
     @PutMapping("/update/{bookId}")
     @Operation(summary = "Updates a Book in the Database via its id")
-    public ResponseEntity<Object> updateBook(@PathVariable Long bookId, @RequestBody Book updatedBook)
+    public ResponseEntity<?> updateBook(@PathVariable Long bookId, @RequestBody Book updatedBook)
     {
         try
         {
@@ -91,7 +108,7 @@ public class BookController
     //endpoints that update a books quantity via its id in the db
     @PutMapping("/restock/{bookId}")
     @Operation(summary = "Specifically handles adding to a Book's qty via its id.")
-    public ResponseEntity<Object> restockBook(@PathVariable Long bookId, @RequestBody Quantity amount)
+    public ResponseEntity<?> restockBook(@PathVariable Long bookId, @RequestBody Quantity amount)
     {
         try
         {
@@ -108,7 +125,7 @@ public class BookController
     }
     @PutMapping("/sell/{bookId}")
     @Operation(summary = "Specifically handles subtracting from a Book's qty via its id.")
-    public ResponseEntity<Object> sellBook(@PathVariable Long bookId, @RequestBody Quantity amount)
+    public ResponseEntity<?> sellBook(@PathVariable Long bookId, @RequestBody Quantity amount)
     {
         try
         {
@@ -126,7 +143,7 @@ public class BookController
     //endpoint that deletes an achievement from the "db" by id via the service
     @DeleteMapping("/delete/{bookId}")
     @Operation(summary = "Deletes a Book from the Database via its id.")
-    public ResponseEntity<String> deleteBook(@PathVariable Long bookId)
+    public ResponseEntity<?> deleteBook(@PathVariable Long bookId)
     {
         try
         {
