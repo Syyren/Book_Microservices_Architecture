@@ -2,6 +2,7 @@ package ryanmcgrandle.orderservice.client;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -14,7 +15,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//testing all of my functions in the BookCLient class
+//testing all of my functions in the BookClient class
+@SpringBootTest
 public class BookClientTest
 {
 

@@ -20,6 +20,7 @@ import java.util.List;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+//declaring the test for use on the OrderController
 @WebMvcTest(OrderController.class)
 public class OrderControllerTest
 {
@@ -80,6 +81,7 @@ public class OrderControllerTest
     @Test
     public void testSellBook() throws Exception
     {
+        String successMsg = "Purchased!";
         Long bookId = 1L;
         Quantity amount = new Quantity(2);
 
@@ -90,12 +92,13 @@ public class OrderControllerTest
                         .content(objectMapper.writeValueAsString(amount)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.qty").value(amount.getQty()))
-                .andExpect(jsonPath("$.msg").value("Purchased!"));
+                .andExpect(jsonPath("$.msg").value(successMsg));
     }
 
     @Test
     public void testRestockBook() throws Exception
     {
+        String successMsg = "Restocked!";
         Long bookId = 1L;
         Quantity amount = new Quantity(2);
 
@@ -106,6 +109,6 @@ public class OrderControllerTest
                         .content(objectMapper.writeValueAsString(amount)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.qty").value(amount.getQty()))
-                .andExpect(jsonPath("$.msg").value("Restocked!"));
+                .andExpect(jsonPath("$.msg").value(successMsg));
     }
 }
