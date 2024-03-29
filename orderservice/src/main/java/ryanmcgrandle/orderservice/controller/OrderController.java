@@ -38,7 +38,7 @@ public class OrderController
 
     @PostMapping("/view/title")
     @Operation(summary = "Gets a Book from the Microservice by its title.")
-    public ResponseEntity<?> getBooks(@RequestBody Title title)
+    public ResponseEntity<?> getBookByTitle(@RequestBody Title title)
     {
         try
         {
@@ -92,5 +92,4 @@ public class OrderController
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
         }
     }
-
 }
