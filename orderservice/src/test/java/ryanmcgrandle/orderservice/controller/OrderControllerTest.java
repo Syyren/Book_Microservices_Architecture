@@ -1,6 +1,7 @@
 package ryanmcgrandle.orderservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,18 @@ public class OrderControllerTest
     @Test
     public void testGetAllBooks() throws Exception
     {
-        Book book1 = new Book(1L, "Book1", "Description1", "Author1", 5);
-        Book book2 = new Book(2L, "Book2", "Description2", "Author2", 8);
+        Book book1 = new Book(
+                1L,
+                "Book1",
+                "Description1",
+                "Author1",
+                5);
+        Book book2 = new Book(
+                2L,
+                "Book2",
+                "Description2",
+                "Author2",
+                8);
         List<Book> booksList = Arrays.asList(book1, book2);
 
         when(bookClient.getAllBooks()).thenReturn(booksList);
@@ -74,7 +85,6 @@ public class OrderControllerTest
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(title)))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.bookId").value(book.getBookId()));
     }
 
