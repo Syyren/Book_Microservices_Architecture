@@ -21,7 +21,7 @@ public class OrderController
     private BookClient bookClient;
 
     @GetMapping("/view/all")
-    @Operation(summary = "Gets a list of Books from the Microservice.")
+    @Operation(summary = "Gets a list of Books from the Book Microservice.")
     public ResponseEntity<?> getAllBooks()
     {
         try
@@ -37,7 +37,7 @@ public class OrderController
     }
 
     @PostMapping("/view/title")
-    @Operation(summary = "Gets a Book from the Microservice by its title.")
+    @Operation(summary = "Gets a Book from the Book Microservice by its title.")
     public ResponseEntity<?> getBookByTitle(@RequestBody Title title)
     {
         try
@@ -53,7 +53,7 @@ public class OrderController
     }
 
     @PutMapping("/sell/{bookId}")
-    @Operation(summary = "Sells a book from the microservice.")
+    @Operation(summary = "Sells a book from the Book Microservice.")
     public ResponseEntity<?> sellBook(@PathVariable Long bookId, @RequestBody Quantity amount)
     {
         try {
@@ -73,7 +73,7 @@ public class OrderController
     }
 
     @PutMapping("/restock/{bookId}")
-    @Operation(summary = "Restocks a book to the microservice.")
+    @Operation(summary = "Restocks a book to the Book Microservice.")
     public ResponseEntity<?> restockBook(@PathVariable Long bookId, @RequestBody Quantity amount)
     {
         try

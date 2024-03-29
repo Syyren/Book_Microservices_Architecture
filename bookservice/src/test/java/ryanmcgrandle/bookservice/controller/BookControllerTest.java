@@ -37,7 +37,8 @@ public class BookControllerTest
     private BookController bookController;
     //testing the createBook method
     @Test
-    public void testCreateBook() throws Exception {
+    public void testCreateBook() throws Exception
+    {
         Book book = new Book(
                 1L,
                 "Test1",

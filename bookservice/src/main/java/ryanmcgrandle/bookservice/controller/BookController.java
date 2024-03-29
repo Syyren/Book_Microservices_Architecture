@@ -29,7 +29,7 @@ public class BookController
 
     //inserts a new achievement into the "db" via the service
     @PostMapping("/create")
-    @Operation(summary = "Makes a new Book.")
+    @Operation(summary = "Makes a new Book in the Database.")
     public ResponseEntity<?> createBook(@RequestBody Book book)
     {
         try
@@ -57,7 +57,7 @@ public class BookController
     }
     //endpoint that gets a book from the db via its id from the service
     @GetMapping("/get/{bookId}")
-    @Operation(summary = "Gets a Book from the Database via its id")
+    @Operation(summary = "Gets a Book from the Database via its id.")
     public ResponseEntity<?> getBookById(@PathVariable Long bookId)
     {
         try
@@ -73,7 +73,7 @@ public class BookController
     }
     //endpoint that gets a book by the title in the request body
     @PostMapping("/get/title")
-    @Operation(summary = "Gets a Book from the Database via its title")
+    @Operation(summary = "Gets a Book from the Database via its title.")
     public ResponseEntity<?> getBookByTitle(@RequestBody Title title)
     {
         try
@@ -89,7 +89,7 @@ public class BookController
     }
     //endpoint that updates a book that already exists in the db by id through the service
     @PutMapping("/update/{bookId}")
-    @Operation(summary = "Updates a Book in the Database via its id")
+    @Operation(summary = "Updates a Book in the Database via its id.")
     public ResponseEntity<?> updateBook(@PathVariable Long bookId, @RequestBody Book updatedBook)
     {
         try
