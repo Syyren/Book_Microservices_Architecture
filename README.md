@@ -1,4 +1,4 @@
-# Microservices_Architecture
+# Microservices Architecture
 ### Assignment 3 for CPRO2501
 
 ## BookService
@@ -58,16 +58,16 @@ It's where the interaction operations are performed on various entities and it i
 
 ### Takes advantage of the following routes
 
-PUT that sells a book from the Book Microservice.
+`PUT` that sells a book from the Book Microservice.
 > /api/order/sell/{bookId}
 
-PUT that restocks a book to the Book Microservice.
+`PUT` that restocks a book to the Book Microservice.
 > /api/order/restock/{bookId}
 
-POST that gets a Book from the Book Microservice by its title.
+`POST` that gets a Book from the Book Microservice by its title.
 > /api/order/view/title
 
-GET that gets a list of Books from the Book Microservice.
+`GET` that gets a list of Books from the Book Microservice.
 > /api/order/view/all
 
 
