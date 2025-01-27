@@ -1,6 +1,4 @@
 # Microservices Architecture
-### Assignment 3 for CPRO2501
-
 ## BookService
 
 ### What is it?
